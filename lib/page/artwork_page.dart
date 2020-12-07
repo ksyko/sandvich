@@ -9,6 +9,9 @@ import 'package:sandvich/widget/connection_lost.dart';
 import 'package:sandvich/widget/post.dart';
 
 class ArtworkApp extends StatefulWidget {
+  static String route = '/artworks';
+  static String title = 'Artworks';
+
   @override
   State<StatefulWidget> createState() {
     return _ArtworkState();
@@ -28,7 +31,7 @@ class _ArtworkState extends State<ArtworkApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Artwork'),
+        title: Text(ArtworkApp.title),
         actions: [
           IconButton(
               icon: const Icon(Icons.refresh),

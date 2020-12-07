@@ -9,6 +9,9 @@ import 'package:sandvich/widget/connection_lost.dart';
 import 'package:sandvich/widget/post.dart';
 
 class VideoApp extends StatefulWidget {
+  static String route = '/videos';
+  static String title = 'Videos';
+
   @override
   State<StatefulWidget> createState() {
     return _VideoState();

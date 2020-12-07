@@ -11,6 +11,9 @@ import 'package:sandvich/widget/connection_lost.dart';
 import 'package:time_formatter/time_formatter.dart';
 
 class NewsApp extends StatefulWidget {
+  static String route = '/news';
+  static String title = 'News';
+
   @override
   State<StatefulWidget> createState() {
     return _NewsState();

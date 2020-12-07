@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sandvich/page/artwork_page.dart';
 import 'package:sandvich/page/home_page.dart';
+import 'package:sandvich/page/news_page.dart';
+import 'package:sandvich/page/video_page.dart';
 
 void main() {
   runApp(SandvichApp());
@@ -13,15 +16,17 @@ class SandvichApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Sandvich',
       theme: ThemeData(
-        primaryColor: Color(0xFF6A8D73),
-        scaffoldBackgroundColor: Color(0xFFE4FFE1),
-        cardColor: Color(0xFFF4FDD9),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Color(0xFF6A8D73),
-          selectedItemColor: Color(0xFFE4FFE1),
-        ),
-      ),
-      home: HomePage(),
+          primaryColor: Color(0xFF6A8D73),
+          scaffoldBackgroundColor: Color(0xFFE4FFE1),
+          cardColor: Color(0xFFF4FDD9),
+          fontFamily: 'Baloo2'),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => HomePage(),
+        ArtworkApp.route: (context) => ArtworkApp(),
+        NewsApp.route: (context) => NewsApp(),
+        VideoApp.route: (context) => VideoApp(),
+      },
     );
   }
 }

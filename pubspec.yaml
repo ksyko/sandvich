@@ -26,6 +26,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
+  fonts:
+    - family: Baloo2
+      fonts:
+        - asset: fonts/Baloo2-Regular.ttf
   assets:
     - images/
