@@ -34,7 +34,7 @@ class _NewsState extends State<NewsApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('News'),
+        title: Text(NewsApp.title),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -54,8 +54,8 @@ class _NewsState extends State<NewsApp> {
             if (snapshot.hasData) {
               lastId = snapshot.data[0].id;
               return listView(snapshot.data);
-            } else if (snapshot.hasError) return ConnectionLost();
-            return CircularProgressIndicator();
+            } else if (snapshot.hasError) return StatusIndicator(Status.Error);
+            return StatusIndicator(Status.Loading);
           },
         ),
       ),
@@ -71,46 +71,49 @@ Widget listView(List<News> items) {
         bool title = ('${items[index].title}' != '');
         return Card(
             elevation: 8,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (title)
+            child: InkWell(
+              onTap: () => Util().launchURL(items[index].link),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (title)
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8.0, 16, 0, 0),
+                      child: Text(
+                        '${items[index].title}',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                    ),
+                  if (title)
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 4),
+                      child: Text(
+                        '${(items[index].source)} · ${formatTime(items[index].timestamp * 1000)}',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(color: Colors.black38),
+                      ),
+                    )
+                  else
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8.0, 16, 0, 4),
+                      child: Text(
+                        '${(items[index].source)} · ${formatTime(items[index].timestamp * 1000)}',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(color: Colors.black38),
+                      ),
+                    ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(8.0, 16, 0, 0),
-                    child: Text(
-                      '${items[index].title}',
-                      textAlign: TextAlign.start,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    padding: const EdgeInsets.fromLTRB(8.0, 4, 4, 16),
+                    child: HtmlWidget(
+                      '${items[index].description}'.replaceAll('<br><br>', ''),
+                      onTapUrl: (url) => Util().launchURL(url),
                     ),
                   ),
-                if (title)
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 4),
-                    child: Text(
-                      '${(items[index].source)} · ${formatTime(items[index].timestamp * 1000)}',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(color: Colors.black38),
-                    ),
-                  )
-                else
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8.0, 16, 0, 4),
-                    child: Text(
-                      '${(items[index].source)} · ${formatTime(items[index].timestamp * 1000)}',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(color: Colors.black38),
-                    ),
-                  ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8.0, 4, 4, 16),
-                  child: HtmlWidget(
-                    '${items[index].description}'.replaceAll('<br><br>', ''),
-                    onTapUrl: (url) => Util().launchURL(url),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ));
       });
 }

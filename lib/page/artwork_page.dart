@@ -49,8 +49,9 @@ class _ArtworkState extends State<ArtworkApp> {
           builder: (context, snapshot) {
             if (snapshot.hasData)
               return listView(snapshot.data);
-            else if (snapshot.hasError) return ConnectionLost();
-            return CircularProgressIndicator();
+            else if (snapshot.hasError)
+              return StatusIndicator(Status.ConnectionLost);
+            return StatusIndicator(Status.Loading);
           },
         ),
       ),

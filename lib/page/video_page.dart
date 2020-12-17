@@ -30,7 +30,7 @@ class _VideoState extends State<VideoApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Video'), actions: [
+      appBar: AppBar(title: Text(VideoApp.title), actions: [
         IconButton(
             icon: const Icon(Icons.refresh),
             tooltip: 'Refresh',
@@ -46,8 +46,8 @@ class _VideoState extends State<VideoApp> {
           builder: (context, snapshot) {
             if (snapshot.hasData)
               return listView(snapshot.data);
-            else if (snapshot.hasError) return ConnectionLost();
-            return CircularProgressIndicator();
+            else if (snapshot.hasError) StatusIndicator(Status.Error);
+            return StatusIndicator(Status.Loading);
           },
         ),
       ),
