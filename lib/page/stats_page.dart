@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:sandvich/model/stats.dart';
+import 'package:sandvich/util.dart';
 import 'package:sandvich/widget/connection_lost.dart';
 import 'package:sandvich/widget/info_card.dart';
 import 'package:time_formatter/time_formatter.dart';
@@ -46,41 +47,45 @@ class _StatsState extends State<StatsApp> {
           ),
         ],
       ),
-      body: Center(
-        child: FutureBuilder<Stats>(
-          future: futureFeed,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    InfoCard(
-                      Icons.api_rounded,
-                      "Game coordinator",
-                      snapshot.data.gcStatus,
-                    ),
-                    InfoCard(
-                      Icons.access_time_rounded,
-                      "Last game update",
-                      formatTime(int.parse(snapshot.data.tfLastUpdate) * 1000),
-                    ),
-                    InfoCard(
-                      Icons.group_rounded,
-                      "People playing",
-                      "${snapshot.data.tfPlayers}  ( ${formatTime(int.parse(snapshot.data.tfChartsUpdateTimestamp) * 1000).toString()} )",
-                    ),
-                    InfoCard(
-                      Icons.vpn_key_rounded,
-                      "Key prices",
-                      "${snapshot.data.bptfKeyPrice} ( bptf )\n${snapshot.data.mptfKeyPrice} ( mptf )\n${snapshot.data.scmKeyPrice} ( scm )",
-                    ),
-                  ],
-                ),
-              );
-            } else if (snapshot.hasError) StatusIndicator(Status.Error);
-            return StatusIndicator(Status.Loading);
-          },
-        ),
+      body: FutureBuilder<Stats>(
+        future: futureFeed,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  InfoCard(
+                    Icons.api_rounded,
+                    "Game coordinator",
+                    snapshot.data.gcStatus,
+                    () => Util().launchURL("https://steamstat.us/"),
+                  ),
+                  InfoCard(
+                    Icons.access_time_rounded,
+                    "Last game update",
+                    formatTime(int.parse(snapshot.data.tfLastUpdate) * 1000),
+                    () => Util()
+                        .launchURL("https://www.teamfortress.com/?tab=updates"),
+                  ),
+                  InfoCard(
+                    Icons.group_rounded,
+                    "People playing",
+                    "${snapshot.data.tfPlayers}  ( ${formatTime(int.parse(snapshot.data.tfChartsUpdateTimestamp) * 1000).toString()} )",
+                    () => Util().launchURL("https://steamcharts.com/app/440"),
+                  ),
+                  InfoCard(
+                    Icons.vpn_key_rounded,
+                    "Key prices",
+                    "${snapshot.data.bptfKeyPrice} ( bptf )\n${snapshot.data.mptfKeyPrice} ( mptf )\n${snapshot.data.scmKeyPrice} ( scm )",
+                    () => Util().launchURL(
+                        "https://backpack.tf/stats/Unique/Mann%20Co.%20Supply%20Crate%20Key/Tradable/Craftable"),
+                  ),
+                ],
+              ),
+            );
+          } else if (snapshot.hasError) StatusIndicator(Status.Error);
+          return StatusIndicator(Status.Loading);
+        },
       ),
     );
   }

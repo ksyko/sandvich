@@ -11,39 +11,46 @@ class InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
-      child: InkWell(
-        onTap: function,
-        child: Card(
+      padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
+      child: Card(
+        child: InkWell(
+          onTap: function,
           child: Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Icon(
-                  iconData,
-                  size: 50,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      header,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                      ),
+              if (iconData != null)
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Icon(
+                      iconData,
+                      size: 50,
                     ),
-                    if (body != null && body.isNotEmpty)
+                  ),
+                ),
+              Expanded(
+                flex: 3,
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       Text(
-                        body,
+                        header,
                         style: TextStyle(
-                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
                         ),
                       ),
-                  ],
+                      if (body != null && body.isNotEmpty)
+                        Text(
+                          body,
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
               )
             ],

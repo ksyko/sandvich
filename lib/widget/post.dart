@@ -1,23 +1,26 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:sandvich/widget/user_thumnail.dart';
 import 'package:share/share.dart';
 
 import '../util.dart';
 
 class Post extends StatelessWidget {
   final String title;
-  final String content;
-  final String thumbnail;
+  final String contentUrl;
+  final Widget content;
   final String shareUrl;
   final String author;
+  final String authorImageUrl;
 
   Post(
     this.title,
+    this.contentUrl,
     this.content,
-    this.thumbnail,
     this.shareUrl,
-    this.author,
-  );
+    this.author, [
+    this.authorImageUrl,
+  ]);
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +33,38 @@ class Post extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 0),
             child: Row(children: [
+              UserThumbnail(authorImageUrl),
+              SizedBox(
+                width: 20,
+              ),
               Expanded(
-                child: Text(
-                  title,
-                  textAlign: TextAlign.start,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (title.isNotEmpty)
+                      Text(
+                        title,
+                        textAlign: TextAlign.start,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    GestureDetector(
+                      onTap: () {
+                        Util().launchURL(contentUrl);
+                      },
+                      child: Text(
+                        author,
+                        textAlign: TextAlign.start,
+                        style: TextStyle(color: Colors.black38, fontSize: 12),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
                 child: GestureDetector(
                   onTap: () {
-                    Share.share(content);
+                    Share.share(contentUrl);
                   },
                   child: Icon(
                     Icons.share,
@@ -50,30 +73,11 @@ class Post extends StatelessWidget {
               ),
             ]),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 4, 0, 4),
-            child: GestureDetector(
-              onTap: () {
-                Util().launchURL(shareUrl);
-              },
-              child: Text(
-                author,
-                textAlign: TextAlign.start,
-                style: TextStyle(color: Colors.black38, fontSize: 12),
-              ),
-            ),
-          ),
           GestureDetector(
             onTap: () {
-              Util().launchURL(content);
+              Util().launchURL(contentUrl);
             },
-            child: CachedNetworkImage(
-              imageUrl: thumbnail,
-              fit: BoxFit.fitWidth,
-              placeholder: (context, url) =>
-                  Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => Icon(Icons.error),
-            ),
+            child: content,
           ),
         ],
       ),

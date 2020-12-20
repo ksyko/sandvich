@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sandvich/page/artwork_page.dart';
+import 'package:sandvich/page/calculator_page.dart';
 import 'package:sandvich/page/news_page.dart';
 import 'package:sandvich/page/stats_page.dart';
 import 'package:sandvich/page/user_page.dart';
@@ -17,6 +18,21 @@ class _HomePageState extends State<HomePage>
     return Scaffold(
       appBar: AppBar(
         title: Text('Sandvich'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.info),
+            tooltip: 'About',
+            onPressed: () {
+              showAboutDialog(
+                applicationName: "Sandvich",
+                context: context,
+                applicationLegalese: "'Sandvich make me strong' \n"
+                    "But what makes sandvich strong\n"
+                    "These wonderful libraries...",
+              );
+            },
+          ),
+        ],
       ),
       body: GridView.count(
           crossAxisCount: 2,
@@ -33,6 +49,8 @@ class _HomePageState extends State<HomePage>
             contentTile(context, StatsApp.route, StatsApp.title,
                 Icons.bar_chart_rounded),
             contentTile(context, UserApp.route, UserApp.title, Icons.person),
+            contentTile(context, CalculatorApp.route, CalculatorApp.title,
+                Icons.calculate_rounded),
           ]),
     );
   }

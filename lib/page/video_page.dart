@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:sandvich/model/video.dart';
 import 'package:sandvich/widget/connection_lost.dart';
+import 'package:sandvich/widget/image_content.dart';
 import 'package:sandvich/widget/post.dart';
 
 class VideoApp extends StatefulWidget {
@@ -64,9 +65,10 @@ Widget listView(List<Video> items) {
         return Post(
           video.title,
           video.url,
-          video.thumbnail,
+          ImageContent(video.thumbnail),
           video.url,
           '${video.source} · ${video.timestamp}',
+          video.authorThumbnail,
         );
       });
 }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:sandvich/model/artwork.dart';
 import 'package:sandvich/widget/connection_lost.dart';
+import 'package:sandvich/widget/image_content.dart';
 import 'package:sandvich/widget/post.dart';
 
 class ArtworkApp extends StatefulWidget {
@@ -68,9 +69,10 @@ Widget listView(List<Artwork> items) {
         return Post(
           artwork.title,
           artwork.artwork,
-          artwork.artwork,
+          ImageContent(artwork.artwork),
           artwork.authorUrl,
           artwork.author,
+          artwork.profileImage,
         );
       });
 }

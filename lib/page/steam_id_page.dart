@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:sandvich/model/transform.dart' as Rep;
 import 'package:toast/toast.dart';
 
-Box prefsBox;
+Box savedData;
 
 class SteamIdApp extends StatefulWidget {
   static String route = '/SteamId';
@@ -54,7 +54,7 @@ class _SteamIdState extends State<SteamIdApp> {
                     onPressed: () async {
                       var transform = await fetchSteamId(query);
                       if (transform.success) {
-                        prefsBox.put('steam_id', transform.steamId);
+                        savedData.put('steam_id', transform.steamId);
                         Toast.show("Steam id saved", context, duration: 2);
                         Navigator.pop(context);
                       } else
@@ -71,7 +71,7 @@ class _SteamIdState extends State<SteamIdApp> {
 }
 
 Future<bool> openPrefs() async {
-  prefsBox = await Hive.openBox('prefs');
+  savedData = await Hive.openBox('prefs');
   return true;
 }
 

@@ -33,14 +33,15 @@ class StatusIndicator extends StatelessWidget {
         children: [
           Image.asset(
             image,
-            width: 80,
-            height: 80,
+            width: 200,
+            height: 200,
           ),
           Padding(
             padding: const EdgeInsets.only(left: 40, right: 40, top: 16),
             child: Text(
               message,
               textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white70, fontSize: 24),
             ),
           )
         ],

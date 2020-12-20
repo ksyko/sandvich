@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:sandvich/page/artwork_page.dart';
+import 'package:sandvich/page/calculator_page.dart';
 import 'package:sandvich/page/home_page.dart';
 import 'package:sandvich/page/news_page.dart';
 import 'package:sandvich/page/stats_page.dart';
@@ -23,10 +24,17 @@ class SandvichApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Sandvich',
       theme: ThemeData(
-          primaryColor: Color(0xFF171515),
-          scaffoldBackgroundColor: Color(0xFF6f5b3e),
-          cardColor: Color(0xFFc4ae78),
-          fontFamily: 'Baloo2'),
+        primaryColor: Color(0xFF171515),
+        scaffoldBackgroundColor: Color(0xFF6f5b3e),
+        cardColor: Color(0xFFc4ae78),
+        splashColor: Color(0xFF6f5b3e),
+        buttonColor: Color(0xFF171515),
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: Color(0xFF171515),
+          selectionHandleColor: Color(0xFF171515),
+        ),
+        fontFamily: 'Baloo2',
+      ),
       initialRoute: '/',
       routes: {
         '/': (context) => HomePage(),
@@ -36,6 +44,7 @@ class SandvichApp extends StatelessWidget {
         StatsApp.route: (context) => StatsApp(),
         UserApp.route: (context) => UserApp(),
         SteamIdApp.route: (context) => SteamIdApp(),
+        CalculatorApp.route: (context) => CalculatorApp(),
       },
     );
   }

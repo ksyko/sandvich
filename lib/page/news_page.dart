@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:sandvich/model/news.dart';
 import 'package:sandvich/util.dart';
 import 'package:sandvich/widget/connection_lost.dart';
-import 'package:time_formatter/time_formatter.dart';
+import 'package:sandvich/widget/post.dart';
 
 class NewsApp extends StatefulWidget {
   static String route = '/news';
@@ -64,57 +64,32 @@ class _NewsState extends State<NewsApp> {
 }
 
 Widget listView(List<News> items) {
+  EdgeInsets edgeInsets;
   return ListView.builder(
       padding: const EdgeInsets.all(8),
       itemCount: items.length,
       itemBuilder: (BuildContext context, int index) {
         bool title = ('${items[index].title}' != '');
-        return Card(
-            elevation: 8,
-            child: InkWell(
-              onTap: () => Util().launchURL(items[index].link),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (title)
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(8.0, 16, 0, 0),
-                      child: Text(
-                        '${items[index].title}',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
-                    ),
-                  if (title)
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 4),
-                      child: Text(
-                        '${(items[index].source)} · ${formatTime(items[index].timestamp * 1000)}',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(color: Colors.black38),
-                      ),
-                    )
-                  else
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(8.0, 16, 0, 4),
-                      child: Text(
-                        '${(items[index].source)} · ${formatTime(items[index].timestamp * 1000)}',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(color: Colors.black38),
-                      ),
-                    ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8.0, 4, 4, 16),
-                    child: HtmlWidget(
-                      '${items[index].description}'.replaceAll('<br><br>', ''),
-                      onTapUrl: (url) => Util().launchURL(url),
-                    ),
-                  ),
-                ],
-              ),
-            ));
+        HtmlWidget newsContent = HtmlWidget(
+          '${items[index].description}'.replaceAll('<br><br>', ''),
+          onTapUrl: (url) => Util().launchURL(url),
+          enableCaching: true,
+        );
+        if (title)
+          edgeInsets = const EdgeInsets.fromLTRB(8.0, 8, 0, 4);
+        else
+          edgeInsets = const EdgeInsets.fromLTRB(8.0, 16, 0, 4);
+        return Post(
+          items[index].title,
+          items[index].link,
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: newsContent,
+          ),
+          items[index].link,
+          items[index].source,
+          items[index].sourceThumbnail,
+        );
       });
 }
 

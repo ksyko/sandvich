@@ -5,6 +5,7 @@ class Stats {
   final String mptfKeyPrice;
   final String scmKeyPrice;
   final String bptfKeyPrice;
+  final String bptfRefPrice;
   final String tfLastUpdate;
 
   Stats({
@@ -14,6 +15,7 @@ class Stats {
     this.mptfKeyPrice,
     this.scmKeyPrice,
     this.bptfKeyPrice,
+    this.bptfRefPrice,
     this.tfLastUpdate,
   });
 
@@ -25,6 +27,7 @@ class Stats {
       mptfKeyPrice: json['mptf_key_price'],
       scmKeyPrice: json['scm_key_price'],
       bptfKeyPrice: json['bptf_key_price'],
+      bptfRefPrice: json['bptf_ref_price'],
       tfLastUpdate: json['tf_last_update'].toString(),
     );
   }
