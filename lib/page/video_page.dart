@@ -69,6 +69,7 @@ Widget listView(List<Video> items) {
           video.url,
           '${video.source} · ${video.timestamp}',
           video.authorThumbnail,
+          video.url,
         );
       });
 }

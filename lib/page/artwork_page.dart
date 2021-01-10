@@ -67,13 +67,13 @@ Widget listView(List<Artwork> items) {
       itemBuilder: (BuildContext context, int index) {
         Artwork artwork = items[index];
         return Post(
-          artwork.title,
-          artwork.artwork,
-          ImageContent(artwork.artwork),
-          artwork.authorUrl,
-          artwork.author,
-          artwork.profileImage,
-        );
+            artwork.title,
+            artwork.artwork,
+            ImageContent(artwork.artwork),
+            artwork.artwork,
+            artwork.author,
+            artwork.profileImage,
+            artwork.authorUrl);
       });
 }
 

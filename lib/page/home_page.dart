@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:sandvich/page/artwork_page.dart';
 import 'package:sandvich/page/calculator_page.dart';
+import 'package:sandvich/page/item_search_page.dart';
 import 'package:sandvich/page/news_page.dart';
 import 'package:sandvich/page/stats_page.dart';
 import 'package:sandvich/page/user_page.dart';
 import 'package:sandvich/page/video_page.dart';
+import 'package:sandvich/widget/content_tile.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage>
-    with TickerProviderStateMixin<HomePage> {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,40 +45,11 @@ class _HomePageState extends State<HomePage>
             contentTile(context, StatsApp.route, StatsApp.title,
                 Icons.bar_chart_rounded),
             contentTile(context, UserApp.route, UserApp.title, Icons.person),
+            contentTile(context, ItemSearchPage.route, ItemSearchPage.title,
+                Icons.auto_awesome),
             contentTile(context, CalculatorApp.route, CalculatorApp.title,
                 Icons.calculate_rounded),
           ]),
-    );
-  }
-
-  Card contentTile(
-      BuildContext context, String route, String title, IconData icon) {
-    return Card(
-      child: InkWell(
-        onTap: () => Navigator.pushNamed(context, route),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 16,
-            ),
-            Icon(
-              icon,
-              size: 36,
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 18,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

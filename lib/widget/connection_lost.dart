@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:sandvich/dimens/dimens.dart';
 
 enum Status {
   ConnectionLost,
@@ -33,16 +34,13 @@ class StatusIndicator extends StatelessWidget {
         children: [
           Image.asset(
             image,
-            width: 200,
-            height: 200,
+            width: 125,
+            height: 125,
           ),
           Padding(
             padding: const EdgeInsets.only(left: 40, right: 40, top: 16),
-            child: Text(
-              message,
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white70, fontSize: 24),
-            ),
+            child: Text(message,
+                textAlign: TextAlign.center, style: Dimens.bodyText1),
           )
         ],
       ),

@@ -89,6 +89,7 @@ Widget listView(List<News> items) {
           items[index].link,
           items[index].source,
           items[index].sourceThumbnail,
+          items[index].link,
         );
       });
 }

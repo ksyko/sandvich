@@ -113,7 +113,7 @@ SingleChildScrollView links(String steamId, BuildContext context) {
           Icons.backpack_rounded,
           "backpack",
           "",
-              () => _launchURL("https://backpack.tf/profiles/$steamId"),
+          () => _launchURL("https://backpack.tf/profiles/$steamId"),
         ),
         InfoCard(
           Icons.add_chart,
@@ -131,23 +131,23 @@ SingleChildScrollView links(String steamId, BuildContext context) {
           Icons.compare_arrows_rounded,
           "bazaar",
           "",
-              () => _launchURL("https://bazaar.tf/profiles/$steamId"),
+          () => _launchURL("https://bazaar.tf/profiles/$steamId"),
         ),
         InfoCard(
           Icons.web,
           "steam",
           "",
-              () => _launchURL("https://steamcommunity.com/profiles/$steamId"),
+          () => _launchURL("https://steamcommunity.com/profiles/$steamId"),
         ),
         InfoCard(
-            Icons.cancel_rounded,
-            "delete steam id",
-            "",
-                () =>
-            {
-              savedData.put("steam_id", ""),
-              Navigator.pop(context),
-            }),
+          Icons.cancel_rounded,
+          "delete steam id",
+          "",
+          () => {
+            savedData.put("steam_id", ""),
+            Navigator.pop(context),
+          },
+        ),
       ],
     ),
   );

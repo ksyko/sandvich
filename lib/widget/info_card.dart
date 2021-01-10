@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sandvich/dimens/dimens.dart';
 
 class InfoCard extends StatelessWidget {
   final IconData iconData;
@@ -37,17 +38,14 @@ class InfoCard extends StatelessWidget {
                     children: [
                       Text(
                         header,
-                        style: TextStyle(
+                        style: Dimens.headline6.copyWith(
                           fontWeight: FontWeight.bold,
-                          fontSize: 24,
                         ),
                       ),
                       if (body != null && body.isNotEmpty)
                         Text(
                           body,
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
+                          style: Dimens.subtitle1,
                         ),
                     ],
                   ),

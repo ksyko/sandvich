@@ -55,12 +55,6 @@ class _StatsState extends State<StatsApp> {
               child: Column(
                 children: [
                   InfoCard(
-                    Icons.api_rounded,
-                    "Game coordinator",
-                    snapshot.data.gcStatus,
-                    () => Util().launchURL("https://steamstat.us/"),
-                  ),
-                  InfoCard(
                     Icons.access_time_rounded,
                     "Last game update",
                     formatTime(int.parse(snapshot.data.tfLastUpdate) * 1000),
