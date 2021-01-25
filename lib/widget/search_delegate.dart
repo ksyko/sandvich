@@ -38,7 +38,7 @@ class ItemSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    if (query.length < 4) {
+    if (query.length < 3) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

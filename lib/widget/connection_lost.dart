@@ -32,15 +32,19 @@ class StatusIndicator extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            image,
-            width: 125,
-            height: 125,
+          Flexible(
+            child: Image.asset(
+              image,
+              width: 125,
+              height: 125,
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 40, right: 40, top: 16),
-            child: Text(message,
-                textAlign: TextAlign.center, style: Dimens.bodyText1),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 40, right: 40, top: 16),
+              child: Text(message,
+                  textAlign: TextAlign.center, style: Dimens.bodyText1),
+            ),
           )
         ],
       ),

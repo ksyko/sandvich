@@ -33,8 +33,8 @@ class HomePage extends StatelessWidget {
       body: GridView.count(
           crossAxisCount: 2,
           padding: const EdgeInsets.all(8.0),
-          shrinkWrap: true,
-          childAspectRatio: 2,
+          shrinkWrap: false,
+          childAspectRatio: 1.5,
           children: [
             contentTile(context, ArtworkApp.route, ArtworkApp.title,
                 Icons.brush_rounded),

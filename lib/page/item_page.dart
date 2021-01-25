@@ -25,7 +25,7 @@ class ItemPage extends StatelessWidget {
     priceLinks = getLinks(itemPrice.sku);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Item page"),
+        title: Text(itemPrice.name),
       ),
       body: Center(
         child: FutureBuilder<ItemDetails>(
@@ -70,7 +70,7 @@ class ItemPage extends StatelessWidget {
                                           padding: const EdgeInsets.fromLTRB(
                                               0, 16, 0, 16),
                                           child: Text(
-                                            "Sellers at:\n${itemPrice.sell.keys.toInt()} keys ${itemPrice.sell.metal.toInt()} ref",
+                                            "Sellers at:\n${itemPrice.sell.keys.toInt()} keys ${itemPrice.sell.metal} ref",
                                             style: Dimens.bodyText2,
                                           ),
                                         ),
@@ -83,7 +83,7 @@ class ItemPage extends StatelessWidget {
                                           padding: const EdgeInsets.fromLTRB(
                                               0, 16, 0, 16),
                                           child: Text(
-                                            "Buyers at:\n${itemPrice.buy.keys.toInt()} keys ${itemPrice.buy.metal.toInt()} ref",
+                                            "Buyers at:\n${itemPrice.buy.keys.toInt()} keys ${itemPrice.buy.metal} ref",
                                             style: Dimens.bodyText2,
                                           ),
                                         ),

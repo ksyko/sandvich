@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sandvich/dimens/dimens.dart';
 
 Card contentTile(
     BuildContext context, String route, String title, IconData icon) {
@@ -6,13 +7,13 @@ Card contentTile(
     child: InkWell(
       onTap: () => Navigator.pushNamed(context, route),
       child: Container(
-        padding: EdgeInsets.only(left: 8, right: 8),
-        child: Row(
+        padding: EdgeInsets.only(top: 8, bottom: 8),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              flex: 1,
+            Flexible(
+              flex: 2,
               child: Container(
                 child: Icon(
                   icon,
@@ -20,19 +21,17 @@ Card contentTile(
                 ),
               ),
             ),
-            Expanded(
+            Flexible(
+              flex: 3,
               child: SizedBox(
-                width: 4,
+                height: 32,
               ),
             ),
-            Expanded(
-              flex: 4,
+            Flexible(
+              flex: 5,
               child: Text(
                 title,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontStyle: FontStyle.normal,
-                ),
+                style: Dimens.subtitle1,
               ),
             ),
           ],

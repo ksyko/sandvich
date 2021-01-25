@@ -37,6 +37,13 @@ class _NewsState extends State<NewsApp> {
         title: Text(NewsApp.title),
         actions: [
           IconButton(
+            icon: const Icon(Icons.info_outline_rounded),
+            tooltip: 'Sources',
+            onPressed: () {
+              _showMyDialog(context);
+            },
+          ),
+          IconButton(
             icon: const Icon(Icons.refresh),
             tooltip: 'Refresh',
             onPressed: () {
@@ -64,30 +71,24 @@ class _NewsState extends State<NewsApp> {
 }
 
 Widget listView(List<News> items) {
-  EdgeInsets edgeInsets;
   return ListView.builder(
       padding: const EdgeInsets.all(8),
       itemCount: items.length,
       itemBuilder: (BuildContext context, int index) {
-        bool title = ('${items[index].title}' != '');
         HtmlWidget newsContent = HtmlWidget(
           '${items[index].description}'.replaceAll('<br><br>', ''),
           onTapUrl: (url) => Util().launchURL(url),
           enableCaching: true,
         );
-        if (title)
-          edgeInsets = const EdgeInsets.fromLTRB(8.0, 8, 0, 4);
-        else
-          edgeInsets = const EdgeInsets.fromLTRB(8.0, 16, 0, 4);
         return Post(
           items[index].title,
           items[index].link,
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(16),
             child: newsContent,
           ),
           items[index].link,
-          items[index].source,
+          "${items[index].source} · ${items[index].timestamp}",
           items[index].sourceThumbnail,
           items[index].link,
         );
@@ -107,4 +108,65 @@ Future<List<News>> fetchFeed() async {
   } else {
     throw Exception('Failed to load feed');
   }
+}
+
+Future<void> _showMyDialog(BuildContext context) async {
+  const String url_backpack = "https://twitter.com/backpacktf";
+  const String url_creators = "https://twitter.com/creatorstf";
+  const String url_kritzkast = "https://www.kritzkast.com/";
+  const String url_tf2 = "https://www.teamfortress.com/";
+  const String url_tf2maps = "https://twitter.com/tf2maps";
+  const String url_toth = "https://twitter.com/tipofthehats";
+  const String url_tftv = "https://twitter.com/TeamFortressTV";
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: true,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('News are aggregated from the following sources:'),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              GestureDetector(
+                child: Text("backpack.tf\n$url_backpack\n"),
+                onTap: () => {Util().launchURL("$url_backpack")},
+              ),
+              GestureDetector(
+                child: Text("creators.tf\n$url_creators\n"),
+                onTap: () => {Util().launchURL("$url_creators")},
+              ),
+              GestureDetector(
+                child: Text("Kritzkast\n$url_kritzkast\n"),
+                onTap: () => {Util().launchURL("$url_kritzkast")},
+              ),
+              GestureDetector(
+                child: Text("Team Fortress\n$url_tf2\n"),
+                onTap: () => {Util().launchURL("$url_tf2")},
+              ),
+              GestureDetector(
+                child: Text("Tf2 maps\n$url_tf2maps\n"),
+                onTap: () => {Util().launchURL("$url_tf2maps")},
+              ),
+              GestureDetector(
+                child: Text("Tip of the hats\n$url_toth\n"),
+                onTap: () => {Util().launchURL("$url_toth")},
+              ),
+              GestureDetector(
+                child: Text("Teamfortress.tv\n$url_tftv\n"),
+                onTap: () => {Util().launchURL("$url_tftv")},
+              ),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

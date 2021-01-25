@@ -1,10 +1,12 @@
+import 'package:time_formatter/time_formatter.dart';
+
 class News {
   final String id;
   final String source;
   final String sourceThumbnail;
   final String title;
   final String description;
-  final int timestamp;
+  final String timestamp;
   final String link;
 
   News(
@@ -23,7 +25,7 @@ class News {
       sourceThumbnail: json['source_thumbnail'],
       title: json['title'],
       description: json['description'],
-      timestamp: json['timestamp'],
+      timestamp: formatTime(json['timestamp'] * 1000),
       link: json['link'],
     );
   }
